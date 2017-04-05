@@ -1,6 +1,8 @@
 package com.hibernate.test.user;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity (name = "USER_DETAILS")
 public class UserDetails {
@@ -20,6 +22,17 @@ public class UserDetails {
     })
     private Address homeAddress;
     private Address officeAddress;
+
+    @ElementCollection
+    private Set<Address> listOfAddresses = new HashSet<>();
+
+    public Set<Address> getListOfAddresses() {
+        return listOfAddresses;
+    }
+
+    public void setListOfAddresses(Set<Address> listOfAddresses) {
+        this.listOfAddresses = listOfAddresses;
+    }
 
     public Address getHomeAddress() {
         return homeAddress;
