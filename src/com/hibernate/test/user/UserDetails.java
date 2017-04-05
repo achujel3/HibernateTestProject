@@ -1,36 +1,54 @@
 package com.hibernate.test.user;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import org.hibernate.annotations.CollectionId;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
-@Entity (name = "USER_DETAILS")
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import java.util.ArrayList;
+import java.util.Collection;
+
+@Entity(name = "USER_DETAILS")
 public class UserDetails {
 
     @Id
-    @Column (name = "USER_ID")
+    @Column(name = "USER_ID")
     @GeneratedValue
     private int userId;
-    @Column (name="USER_NAME")
+    @Column(name = "USER_NAME")
     private String username;
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "street", column = @Column(name="HOME_STREET")),
-            @AttributeOverride(name = "pincode", column = @Column(name="HOME_PINCODE")),
-            @AttributeOverride(name = "city", column = @Column(name="HOME_CITY")),
-            @AttributeOverride(name = "house", column = @Column(name="HOME_HOUSE"))
+            @AttributeOverride(name = "street", column = @Column(name = "HOME_STREET")),
+            @AttributeOverride(name = "pincode", column = @Column(name = "HOME_PINCODE")),
+            @AttributeOverride(name = "city", column = @Column(name = "HOME_CITY")),
+            @AttributeOverride(name = "house", column = @Column(name = "HOME_HOUSE"))
     })
     private Address homeAddress;
     private Address officeAddress;
 
     @ElementCollection
-    private Set<Address> listOfAddresses = new HashSet<>();
+    @JoinTable(name = "USER_ADDRESS", joinColumns = @JoinColumn(name = "USER_ID"))
+    @GenericGenerator(name = "sequence", strategy = "sequence")
+    @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
+    @CollectionId(columns = {@Column(name = "ADDRESS_ID")}, generator = "sequence", type = @Type(type = "long"))
+    private Collection<Address> listOfAddresses = new ArrayList<>();
 
-    public Set<Address> getListOfAddresses() {
+    public Collection<Address> getListOfAddresses() {
         return listOfAddresses;
     }
 
-    public void setListOfAddresses(Set<Address> listOfAddresses) {
+    public void setListOfAddresses(Collection<Address> listOfAddresses) {
         this.listOfAddresses = listOfAddresses;
     }
 
