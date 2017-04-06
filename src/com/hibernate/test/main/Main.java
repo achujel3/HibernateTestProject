@@ -46,8 +46,10 @@ public class Main {
         session = sessionFactory.openSession();
         session.beginTransaction();
         // This way we can get objects by their PK
-        user1 = (UserDetails) session.get(UserDetails.class, 2);
-        System.out.println(user1.getUsername());
+        user1 = (UserDetails) session.get(UserDetails.class, 1);
+        session.close();
+        System.out.println(user1.getListOfAddresses().size());
+
 
 
     }
