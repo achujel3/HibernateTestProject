@@ -16,6 +16,9 @@ public class Main {
         Vehicle vehicle = new Vehicle();
         vehicle.setVehicleName("First vehicle");
 
+        Vehicle vehicle2 = new Vehicle();
+        vehicle2.setVehicleName("Second vehicle");
+
         UserDetails user1 = new UserDetails();
         user1.setUsername("First user");
         Address address = new Address();
@@ -23,8 +26,12 @@ public class Main {
         address.setStreet("6th ave");
         address.setPincode("69584");
         address.setHouse("12");
+
         user1.setHomeAddress(address);
         user1.setVehicle(vehicle);
+
+        user1.getVehicles().add(vehicle);
+        user1.getVehicles().add(vehicle2);
 
         UserDetails user2 = new UserDetails();
         user2.setUsername("Second user");
@@ -38,7 +45,8 @@ public class Main {
         user1.getListOfAddresses().add(address);
         user1.getListOfAddresses().add(address2);
 
-
+        vehicle.setUser(user1);
+        vehicle2.setUser(user1);
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
@@ -46,6 +54,7 @@ public class Main {
         session.save(user1);
         session.save(user2);
         session.save(vehicle);
+        session.save(vehicle2);
         session.getTransaction().commit();
         session.close();
 

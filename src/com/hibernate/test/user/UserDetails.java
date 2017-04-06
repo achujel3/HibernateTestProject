@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,6 +51,20 @@ public class UserDetails {
     @OneToOne
     @JoinTable(name = "VEHICLE_ID")
     private Vehicle vehicle;
+
+    @OneToMany
+    @JoinTable(name = "USER_VEHICLE", joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID")
+    )
+    private Collection<Vehicle> vehicles = new ArrayList<>();
+
+    public Collection<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(Collection<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
 
     public Vehicle getVehicle() {
         return vehicle;
