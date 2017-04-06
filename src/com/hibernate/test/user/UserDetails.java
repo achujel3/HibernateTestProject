@@ -1,5 +1,6 @@
 package com.hibernate.test.user;
 
+import com.hibernate.test.vehicle.Vehicle;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -44,6 +46,18 @@ public class UserDetails {
     @GeneratedValue(generator = "sequence", strategy = GenerationType.SEQUENCE)
     @CollectionId(columns = {@Column(name = "ADDRESS_ID")}, generator = "sequence", type = @Type(type = "long"))
     private Collection<Address> listOfAddresses = new ArrayList<>();
+
+    @OneToOne
+    @JoinTable(name = "VEHICLE_ID")
+    private Vehicle vehicle;
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
 
     public Collection<Address> getListOfAddresses() {
         return listOfAddresses;

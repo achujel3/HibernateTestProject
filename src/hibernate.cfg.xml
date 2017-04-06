@@ -21,6 +21,7 @@
 
 
         <mapping class="com.hibernate.test.user.UserDetails"/>
+        <mapping class="com.hibernate.test.vehicle.Vehicle"/>
 
     </session-factory>
 </hibernate-configuration>

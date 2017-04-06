@@ -2,6 +2,7 @@ package com.hibernate.test.main;
 
 import com.hibernate.test.user.Address;
 import com.hibernate.test.user.UserDetails;
+import com.hibernate.test.vehicle.Vehicle;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -12,6 +13,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Vehicle vehicle = new Vehicle();
+        vehicle.setVehicleName("First vehicle");
+
         UserDetails user1 = new UserDetails();
         user1.setUsername("First user");
         Address address = new Address();
@@ -20,6 +24,7 @@ public class Main {
         address.setPincode("69584");
         address.setHouse("12");
         user1.setHomeAddress(address);
+        user1.setVehicle(vehicle);
 
         UserDetails user2 = new UserDetails();
         user2.setUsername("Second user");
@@ -33,11 +38,14 @@ public class Main {
         user1.getListOfAddresses().add(address);
         user1.getListOfAddresses().add(address2);
 
+
+
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.save(user1);
         session.save(user2);
+        session.save(vehicle);
         session.getTransaction().commit();
         session.close();
 
