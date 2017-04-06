@@ -5,7 +5,9 @@ import com.hibernate.test.user.UserDetails;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 public class Vehicle {
@@ -14,15 +16,15 @@ public class Vehicle {
     @GeneratedValue
     private int vehicleId;
     private String vehicleName;
-    @ManyToOne
-    private UserDetails user;
+    @ManyToMany
+    private Collection<UserDetails> users = new ArrayList<>();
 
-    public UserDetails getUser() {
-        return user;
+    public Collection<UserDetails> getUsers() {
+        return users;
     }
 
-    public void setUser(UserDetails user) {
-        this.user = user;
+    public void setUsers(Collection<UserDetails> users) {
+        this.users = users;
     }
 
     public int getVehicleId() {

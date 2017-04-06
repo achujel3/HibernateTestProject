@@ -45,8 +45,8 @@ public class Main {
         user1.getListOfAddresses().add(address);
         user1.getListOfAddresses().add(address2);
 
-        vehicle.setUser(user1);
-        vehicle2.setUser(user1);
+        vehicle.getUsers().add(user1);
+        vehicle2.getUsers().add(user1);
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
