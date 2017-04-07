@@ -51,10 +51,8 @@ public class Main {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        session.save(user1);
-        session.save(user2);
-        session.save(vehicle);
-        session.save(vehicle2);
+        session.persist(user1);
+        session.persist(user2);
         session.getTransaction().commit();
         session.close();
 

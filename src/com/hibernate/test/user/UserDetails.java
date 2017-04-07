@@ -1,12 +1,14 @@
 package com.hibernate.test.user;
 
 import com.hibernate.test.vehicle.Vehicle;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
@@ -17,7 +19,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,7 +54,7 @@ public class UserDetails {
     @JoinTable(name = "VEHICLE_ID")
     private Vehicle vehicle;
 
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Collection<Vehicle> vehicles = new ArrayList<>();
 
     public Collection<Vehicle> getVehicles() {
