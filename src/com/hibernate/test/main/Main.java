@@ -2,6 +2,8 @@ package com.hibernate.test.main;
 
 import com.hibernate.test.user.Address;
 import com.hibernate.test.user.UserDetails;
+import com.hibernate.test.vehicle.FourWheeler;
+import com.hibernate.test.vehicle.TwoWheeler;
 import com.hibernate.test.vehicle.Vehicle;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -48,11 +50,22 @@ public class Main {
         vehicle.getUsers().add(user1);
         vehicle2.getUsers().add(user1);
 
+        FourWheeler fourWheeler = new FourWheeler();
+        fourWheeler.setVehicleName("Porsche");
+        fourWheeler.setSteeringWheel("Porsche steering wheel");
+
+        TwoWheeler twoWheeler = new TwoWheeler();
+        twoWheeler.setVehicleName("Ducati");
+        twoWheeler.setSteeringHandle("Ducati steering handle");
+
+
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.persist(user1);
         session.persist(user2);
+        session.save(twoWheeler);
+        session.save(fourWheeler);
         session.getTransaction().commit();
         session.close();
 
@@ -64,7 +77,6 @@ public class Main {
         user1 = (UserDetails) session.get(UserDetails.class, 1);
         session.close();
         System.out.println(user1.getListOfAddresses().size());
-
 
 
     }
