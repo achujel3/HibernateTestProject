@@ -4,6 +4,7 @@ import com.hibernate.test.vehicle.Vehicle;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SelectBeforeUpdate;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.AttributeOverride;
@@ -25,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity(name = "USER_DETAILS")
+//@org.hibernate.annotations.Entity(selectBeforeUpdate = true)
+@SelectBeforeUpdate
 public class UserDetails {
 
     @Id
