@@ -19,7 +19,7 @@ public class SqlInjection {
         int minUserId = 5;
         String username = "Username 10";
 
-        Query query = session.createQuery("from USER_DETAILS where userId > :minUserId and username = :username");
+        Query query = session.getNamedQuery("UserDetails.byId");
         query.setParameter("minUserId", minUserId);
         query.setParameter("username", username);
         List<UserDetails> users = query.list();
