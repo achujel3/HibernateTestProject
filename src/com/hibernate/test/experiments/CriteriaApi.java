@@ -8,7 +8,6 @@ import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -28,12 +27,7 @@ public class CriteriaApi {
 
         Root<UserDetails> root = criteria.from(UserDetails.class);
 
-//        Criteria criteria = session.createCriteria(UserDetails.class);
-
-
-        Predicate conjunction = builder.conjunction();
-
-        criteria.where(builder.and(builder.like(root.get("username"), "Username 10")));
+        criteria.where(builder.or(builder.between(root.get("userId"), 1, 3), builder.between(root.get("userId"), 7, 10)));
 
         Query query = session.createQuery(criteria);
 
